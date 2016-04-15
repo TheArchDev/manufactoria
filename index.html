@@ -86,6 +86,18 @@
 <h3>
 <a id="level21" class="anchor" href="#level21" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Level 21</h3>
 <img src="screenshots/level21.png">
+<h4>My Logic</h4>
+<p>The underlying idea here is to view valid strings as having exactly 3 distinct segments appearing in the order BRB. The segments can vary in length as long as they all have the same number of dots as each other (in their respective colour). Strings which should fail include any which:
+<ul>
+<li> have more than 3 segments (eg BRBR)</li>
+<li> don't start with blue (eg RBR)</li>
+<li> have any one of the segments containing a different number of dots from the other segments eg [bbb, r, bb]. NB this includes any segment not appearing at all (ie having 0 dots) when the other two segments still appear.</li>
+</ul>
+
+I have implemented this solution through recursion (of sorts...). Each cycle through the system has the overall effect to remove only the first dot from each of the 3 segments. This leads to all 3 segments being shortened one dot at a time, eg [bb,rr,bb] would come out of a single cycle as [b,r,b]. The output of each cycle must then be of the form of a possible raw input string (ie no green or yellow dots present) such that it can then be successfully processed again by the same cycle. As first properly used in <a href='#level17'>Level 17</a>, whilst processing one can use the green/yellow dots as 'markers' to distinguish between the end of one segment and the start of the next.</p>
+<p>Incorrect strings may indeed successfully traverse the cycle a certain number of times, but as soon as one segment has been completely erased and at least one of the other segments still remain, the string will be removed from the conveyor. Eg cycle-by-cycle [bbb,rrr,bb] would yield => [bb,rr,b] => [b,r, ] => FAIL. Only strings which have all 3 segments simultaneously reduced down to length 0 during the same cycle will finally be allowed to proceed to the end as satisfactory inputs!
+
+</p>
 
 <h3>
 <a id="level25" class="anchor" href="#level25" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Level 25</h3>
